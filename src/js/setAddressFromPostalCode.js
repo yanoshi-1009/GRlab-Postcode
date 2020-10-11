@@ -22,13 +22,14 @@ export default (event) => {
     {},
     {},
     (resp) => {
-      const tmpRecord = kintone.app.record.get();
+      const tmpRecord =
+        kintone.app.record.get() || kintone.mobile.app.record.get();
       const result = JSON.parse(resp).results[0];
       tmpRecord.record[fieldCode.address1].value = result.address1;
       tmpRecord.record[fieldCode.address2].value = result.address2;
       tmpRecord.record[fieldCode.address3].value = result.address3;
-      tmpRecord.record[fieldCode.address4].value = '';
-      kintone.app.record.set(tmpRecord);
+      kintone.app.record.set(tmpRecord) ||
+        kintone.mobile.app.record.set(tmpRecord);
     },
     (error) => {
       console.log(error);
